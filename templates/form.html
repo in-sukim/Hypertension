@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="korean">
+<head>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.min.css">
+</head>
+<body>
+    <main class='container'>
+        <h1 style = "text-align:center">고혈압 자가검진 서비스</h1>
+        <article>
+            <hgroup>
+                <h2 style="text-align:center">기본 항목</h2>
+                <h3 style="text-align:center">성별은 남자 혹은 여자의 형식으로 입력해주세요.</h3>
+
+            </hgroup>
+            <form method="POST" action="/result">
+                <div style="display:flex; flex-direction: row; justify-content: center;">
+                    <input type="text" id="sex" name="sex" placeholder="성별" required>
+                    <input type="text" id="age" name="age" placeholder="나이" required>
+                </div>
+                <div style="display:flex; flex-direction: row; justify-content: center;">
+                    <input type="text" id="height" name="height" placeholder="키(m)" required>
+                    <input type="text" id="weight" name="weight" placeholder="체중(kg)" required>
+                    <!-- <input type="text" id="bmi" name="bmi" placeholder="BMI" required> -->
+                </div>
+            
+        </article>
+
+        <article>
+            <hgroup>
+                <h2 style="text-align:center">혈압, 혈당 항목</h2>
+                <h3 style="text-align:center">수축기, 이완기 혈압을 모를 경우 공백으로 입력해주세요.<br> 혈압을 기재해주실 경우 분류 결과가 더 정확해질 수 있습니다.</h3>
+            </hgroup>
+            <div style="display:flex; flex-direction: row; justify-content: center;">
+                <input type="text" id="dbp" name="dbp" placeholder="수축기 혈압(mmHg)">
+                <input type="text" id="sbp" name="sbp" placeholder="이완기 혈압(mmHg)">
+            </div>
+            <div style="display:flex; flex-direction: row; justify-content: center;">
+                <input type="text" id="glu" name="glu" placeholder="공복 혈당(mg/dL)" required>
+            </div>
+        </article>
+
+        <article>
+            <h2 style="text-align:center">설문조사 항목</h2>
+            <article>
+                <label for="BE5_1">1주일간 근력운동 일수</label>
+                <select id="BE5_1" name="BE5_1" required>
+                    <option value="1">전혀하지않음</option>
+                    <option value="2">1일</option>
+                    <option value="3">2일</option>
+                    <option value="4">3일</option>
+                    <option value="5">4일</option>
+                    <option value="6">5일 이상</option>
+                    <option value="9">모름</option>
+                </select>
+
+                <label for="HE_HPfh1">고혈압 의사진단 여부(부)</label>
+                <select id="HE_HPfh1" name="HE_HPfh1" required>
+                    <option value="0">아니요</option>
+                    <option value="1">예</option>
+                    <option value="9">모름</option>
+                </select>
+
+                <label for="HE_HPfh2">고혈압 의사진단 여부(모)</label>
+                <select id="HE_HPfh2" name="HE_HPfh2" required>
+                    <option value="0">아니요</option>
+                    <option value="1">예</option>
+                    <option value="9">모름</option>
+                </select>
+
+                <label for="HE_HPfh3">고혈압 의사진단 여부(형제자매)</label>
+                <select id="HE_HPfh3" name="HE_HPfh3" required>
+                    <option value="0">아니요</option>
+                    <option value="1">예</option>
+                    <option value="9">모름</option>
+                </select>
+            </article>
+        </article>
+
+        <article>
+            <hgroup>
+                <h2 style="text-align:center">유산소 신체활동 실천율</h2>
+                <h3 style="text-align:center">각 항목에 대한 설명을 확인하세요.</h3>
+            </hgroup>
+            <details>
+                <summary style="text-align:center">항목 0</summary>
+                <p style="text-align:center">일주일에 중강도 신체활동을 2시간 30분 이상 또는 고강도 신체활동을 1시간 15분 이상 또는 중강도와 고강도 신체활동을 섞어서<br>(고강도 1분은 중강도 2분) 각 활동에 상당하는 시간을 실천하지 않음</p>
+            </details>
+            <details>
+                <summary style="text-align:center">항목 1</summary>
+                <p style="text-align:center">일주일에 중강도 신체활동을 2시간 30분 이상 또는 고강도 신체활동을 1시간 15분 이상 또는 중강도와 고강도 신체활동을 섞어서<br>(고강도 1분은 중강도 2분) 각 활동에 상당하는 시간을 실천</p>
+            </details>
+            <select id="pa_aerobic" name="pa_aerobic" required>
+                <option value="0">항목 0</option>
+                <option value="1">항목 1</option>
+            </select>
+        </article>
+
+        <button type="submit">제출</button>
+        </form>
+    </main>
+</body>
+</html>
