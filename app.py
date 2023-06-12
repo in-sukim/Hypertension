@@ -74,7 +74,7 @@ def result():
 
     else:
         prompt = '고혈압을 가지고 있는 경우 치료하기 위해 식습관과 운동습관 한가지씩 알려줘'
-    openai.api_key = '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'
+    openai.api_key = 'Your OpenAI API Key'
     
     def chating(text):
         completion = openai.ChatCompletion.create(
