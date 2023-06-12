@@ -1,9 +1,10 @@
-flask==1.1.2
+flask==2.2.2
 openai==0.27.7
 pandas==1.4.2
 numpy==1.21.5
-sklearn==1.1.2
+scikit-learn==1.1.2
 torch==2.0.0
 torchmetrics==0.11.4
 pytorch_lightning==2.0.2
-python==3.9.15
+imbalanced-learn==0.9.1
+#python==3.9.15
