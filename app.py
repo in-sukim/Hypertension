@@ -2,6 +2,11 @@ from flask import Flask, request, render_template
 from modules.user_htn import *
 import openai
 import re
+import argparse
+
+parser = argparse.ArgumentParser(description='Argparse Tutorial')
+parser.add_argument('--apikey', type= str, help='OpenAPIKey')
+args = parser.parse_args()
 
 app = Flask(__name__)
 
@@ -74,7 +79,7 @@ def result():
 
     else:
         prompt = '고혈압을 가지고 있는 경우 치료하기 위해 식습관과 운동습관 한가지씩 알려줘'
-    openai.api_key = 'Your OpenAI API Key'
+    openai.api_key = args.apikey
     
     def chating(text):
         completion = openai.ChatCompletion.create(
@@ -92,8 +97,10 @@ def result():
         text2 = re.sub(r'(운동습관:?)', '<br><br><strong>운동습관</strong><br>', text1)
         return text2
     
+    answer = chating(prompt)
     # 결과 테이블을 렌더링할 result.html 파일 호출
-    return render_template('predict_result.html', result_data=user_htn, question = chating(prompt))
+    return render_template('predict_result.html', result_data=user_htn, answer = answer)
+    # return render_template('predict_result.html', result_data=user_htn)
 
 if __name__ == '__main__':
     app.run()
