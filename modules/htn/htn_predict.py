@@ -21,18 +21,13 @@ class HTN():
 
         # 훈련에서 사용한 전체 데이터
         DF = pd.read_csv('./data/HN16_ALL.csv', na_values=[' '])
-        # full_df = DF[col + ['DI1_dg']].dropna()
         full_df = DF[col + ['DI1_pr']].dropna()
         full_df = full_df.loc[full_df['age'] >= 19]
         full_df = full_df.astype({i : ('int' if i in obj_col else 'float') for i in col}).dropna()
 
-        # train , test = train_test_split(full_df, stratify = full_df['DI1_dg'], test_size =0.1, random_state=2023)
-        # train, valid = train_test_split(train, stratify = train['DI1_dg'], test_size = 0.1, random_state=2023)
-
         train , test = train_test_split(full_df, stratify = full_df['DI1_pr'], test_size =0.1, random_state=2023)
         train, valid = train_test_split(train, stratify = train['DI1_pr'], test_size = 0.1, random_state=2023)
 
-        # train = train.drop(columns = 'DI1_dg')
         train = train.drop(columns = 'DI1_pr')
 
         categorical_cols = ['sex','BE5_1','pa_aerobic','HE_HPfh1','HE_HPfh2','HE_HPfh3']
@@ -56,12 +51,12 @@ class HTN():
         self.data = processed_df
     
     def predict(self):
-        # x = torch.FloatTensor(self.data.iloc[:].values).squeeze(0)
         x = torch.FloatTensor(self.data.iloc[:].values)
         logits = self.model(x)
-        pred = torch.argmax(logits).item()
+        
+        logits = [1 if x > 0.5 else 0 for x in logits]
 
-        return pred
+        return logits[0]
 
 
 # test_df = pd.read_csv('./data/htn_test_df.csv')

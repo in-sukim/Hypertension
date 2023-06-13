@@ -28,7 +28,7 @@ def result():
     height = float(request.form.get('height'))
     weight = float(request.form.get('weight'))
     # bmi = request.form.get('bmi')
-    bmi = round(weight / (height ** 2), 1)
+    bmi = round(weight / ((height * 0.01) ** 2), 1)
     sbp = request.form.get('sbp')
     dbp = request.form.get('dbp')
     if sbp:
@@ -100,7 +100,6 @@ def result():
     answer = chating(prompt)
     # 결과 테이블을 렌더링할 result.html 파일 호출
     return render_template('predict_result.html', result_data=user_htn, answer = answer)
-    # return render_template('predict_result.html', result_data=user_htn)
 
 if __name__ == '__main__':
     app.run()
