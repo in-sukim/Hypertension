@@ -86,15 +86,15 @@ def result():
             model = 'gpt-3.5-turbo',
             messages = [
                 {'role':'user','content': '고혈압을 치료하려면 어떻게 해야 하는지 운동습관과 식습관 각각 두가지씩 알려줘'},
-                {'role':'assistant','content':'운동습관<br> 일주일에 적어도 3번 이상 유산소 및 근력운동을 해야합니다.<br>식습관<br>콜레스테롤이 낮은 음식을 드셔야 합니다.'},
+                {'role':'assistant','content':'운동습관:<br> 일주일에 적어도 3번 이상 유산소 및 근력운동을 해야합니다.<br>식습관:<br>콜레스테롤이 낮은 음식을 드셔야 합니다.'},
                 {'role':'user','content': '고혈압을 예방하려면 어떻게 해야 하는지 운동습관과 식습관 각각 두가지씩 알려줘'},
-                {'role':'assistant','content':'운동습관<br> 심박수가 120이상이 되도록 유산소 운동을 해야합니다.<br>식습관<br>나트륨이 적게 함유된 음식을 드셔야 합니다.'},                
+                {'role':'assistant','content':'운동습관:<br> 심박수가 120이상이 되도록 유산소 운동을 해야합니다.<br>식습관:<br>나트륨이 적게 함유된 음식을 드셔야 합니다.'},                
                 {'role':'user', 'content':str(text)}
                 ]) 
 
         chatbot_response = completion.choices[0].message.content
-        text1 = re.sub(r'(식습관:?)', '<strong>식습관</strong><br>', chatbot_response)
-        text2 = re.sub(r'(운동습관:?)', '<br><br><strong>운동습관</strong><br>', text1)
+        text1 = re.sub(r'(식습관:)', '<strong>식습관</strong><br>', chatbot_response)
+        text2 = re.sub(r'(운동습관:)', '<br><br><strong>운동습관</strong><br>', text1)
         return text2
     
     answer = chating(prompt)

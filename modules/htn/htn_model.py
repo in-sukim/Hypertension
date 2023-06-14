@@ -36,9 +36,6 @@ seed_everything(2023)
 # 변수의 형태별로 전처리 과정을 저장해둔 ColumnTransformer를 통해 변수 전처리를 하고 return 값을 DataFrame형태로 전달
 # OneHoeEncoding을 적용하면 sex_1, sex_2와 같은 형태로 변수가 생기는데 이때 컬럼명을 추출하여 DataFrame형태로 변환
 
-# 변수의 형태별로 전처리 과정을 저장해둔 ColumnTransformer를 통해 변수 전처리를 하고 return 값을 DataFrame형태로 전달
-# OneHoeEncoding을 적용하면 sex_1, sex_2와 같은 형태로 변수가 생기는데 이때 컬럼명을 추출하여 DataFrame형태로 변환
-
 def preprocess_data(df, transformer):
   # 범주형 Feature
   categorical_cols = ['sex','BE5_1','pa_aerobic','HE_HPfh1','HE_HPfh2','HE_HPfh3']
@@ -170,6 +167,9 @@ class hypertensionClassifier(pl.LightningModule):
     self.fc1 = nn.Linear(self.config['input_dim'], self.config['hidden_dim'])
     self.relu = nn.ReLU()
     self.fc2 = nn.Linear(self.config['hidden_dim'], 1)
+    self.loss_fn = self.custom_loss_fn
+
+
 
     # 성능평가를 위한 f1score
     self.f1 = F1Score(task="binary")
@@ -188,7 +188,7 @@ class hypertensionClassifier(pl.LightningModule):
   def training_step(self, batch, batch_idx):
     x, y = batch
     y_hat = self.forward(x)
-    loss = nn.BCELoss()(y_hat, y.unsqueeze(1).float())
+    loss = self.loss_fn(y_hat, y.unsqueeze(1).float())
 
     self.log(
         "train_loss",
@@ -202,7 +202,7 @@ class hypertensionClassifier(pl.LightningModule):
   def validation_step(self, batch, batch_idx):
     x, y = batch
     y_hat = self.forward(x)
-    loss = nn.BCELoss()(y_hat, y.unsqueeze(1).float())
+    loss = self.loss_fn(y_hat, y.unsqueeze(1).float())
     f1 = self.f1(y_hat, y.unsqueeze(1).float())
 
     self.log(
@@ -224,7 +224,7 @@ class hypertensionClassifier(pl.LightningModule):
   def test_step(self, batch, batch_idx):
     x, y = batch
     y_hat = self.forward(x)
-    loss = nn.BCELoss()(y_hat, y.unsqueeze(1).float())
+    loss = self.loss_fn(y_hat, y.unsqueeze(1).float())
     f1 = self.f1(y_hat, y.unsqueeze(1).float())
 
     self.log(
@@ -241,7 +241,15 @@ class hypertensionClassifier(pl.LightningModule):
         logger=True,
         batch_size=len(batch))
     return {"test_loss": loss, "test_f1": f1}
-  
   # 최적화 함수 설정: AdamW
   def configure_optimizers(self):
     return torch.optim.AdamW(self.parameters(), lr= self.config['lr'])
+    
+  # 클래스 1(고혈압)인 경우 가중치를 주어 모델이 고혈압인 경우를 더욱 잘 분류하도록 손실함수 커스텀
+  def custom_loss_fn(self, logits, targets):
+      weights = torch.where(targets == 0, torch.tensor(2.0), torch.tensor(1.0))
+      loss = nn.BCEWithLogitsLoss()(logits, targets.view(-1, 1))
+
+      weighted_loss = torch.mean(weights * loss)
+
+      return weighted_loss

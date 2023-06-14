@@ -21,6 +21,9 @@ import json
 import os
 os.environ["CUDA_LAUNCH_BLOCKING"] = "1"
 
+from scipy import stats
+from imblearn.over_sampling import SMOTENC
+
 import random
 def seed_everything(seed: int = 42):
     random.seed(seed)
@@ -44,8 +47,14 @@ def preprocess_data(df, transformer):
   processed_df = pd.DataFrame(processed_data, columns=feature_names)
 
   return processed_df
-  
-def data_setup():  
+
+def remove_outliers(data, threshold=3):
+    z_scores = stats.zscore(data)
+    outliers = np.abs(z_scores) > threshold
+    cleaned_data = data[~outliers]
+    return cleaned_data
+
+def data_setup():
   DF = pd.read_csv('./data/HN16_ALL.csv', na_values=[' '])
   col = ['sex','age','HE_ht','HE_wt','HE_BMI','HE_glu','BE5_1','HE_HPfh1','HE_HPfh2','HE_HPfh3','pa_aerobic', 'HE_sbp']
   df = DF[col].dropna()
@@ -53,27 +62,55 @@ def data_setup():
 
   obj_col = ['sex','BE5_1','pa_aerobic','HE_HPfh1','HE_HPfh2','HE_HPfh3']
   df = df.astype({i : ('int' if i in obj_col else 'float') for i in col}).dropna()
-  # df['DI1_dg'] = df['DI1_dg'].astype('int')
-  # df['HE_sbp'] = np.log1p(df['HE_sbp'])
 
 
   train , test = train_test_split(df, test_size =0.1)
   train, valid = train_test_split(train, test_size = 0.1)
 
+  train['HE_sbp_class'] = [0 if x < 130 else 1 for x in train['HE_sbp']]
+
+  sm = SMOTENC(random_state=2023, categorical_features=[0,6,7,8,9,10])
+  x_smote = train.iloc[:,:-1].values
+  y_smote = train.iloc[:, -1].values
+
+  x_over, y_over = sm.fit_resample(x_smote, y_smote)
+
+  over_train = pd.DataFrame(x_over)
+  over_train.columns = train.columns.tolist()[:-1]
+
   categorical_cols = ['sex','BE5_1','pa_aerobic','HE_HPfh1','HE_HPfh2','HE_HPfh3']
   continuous_cols = list(set(df.columns.tolist()) - set(categorical_cols + ['HE_sbp']))
 
   preprocess = ColumnTransformer([
-      ('continuous', RobustScaler(), continuous_cols),
+      ('continuous', StandardScaler(), continuous_cols),
       ('categorical', OneHotEncoder(handle_unknown='ignore'), categorical_cols),
       ], remainder='passthrough')
-  preprocess.fit(train)
-  
-  train = preprocess_data(train, preprocess)
-  valid = preprocess_data(valid, preprocess)
-  test = preprocess_data(test, preprocess)
-  return train, valid, test
+  preprocess.fit(over_train)
 
+
+  train = preprocess_data(over_train, preprocess)
+  train['HE_sbp'] = remove_outliers(train['HE_sbp'])
+  train['HE_glu'] = remove_outliers(train['HE_glu'])
+
+
+
+  valid = preprocess_data(valid, preprocess)
+  valid['HE_sbp'] = remove_outliers(valid['HE_sbp'])
+  valid['HE_glu'] = remove_outliers(valid['HE_glu'])
+
+  test = preprocess_data(test, preprocess)
+  test['HE_sbp'] = remove_outliers(test['HE_sbp'])
+  test['HE_glu'] = remove_outliers(test['HE_glu'])
+
+  train = train.dropna()
+  valid = valid.dropna()
+  test = test.dropna()
+
+  train['HE_sbp'] = np.log1p(train['HE_sbp'])
+  valid['HE_sbp'] = np.log1p(valid['HE_sbp'] )
+  test['HE_sbp'] = np.log1p(test['HE_sbp'] )
+
+  return train, valid, test
 
 class SBPDataset(Dataset):
   def __init__(self, df):
@@ -81,7 +118,7 @@ class SBPDataset(Dataset):
     self.data = df
     self.x = self.data.iloc[:, :-1].values
     self.y = self.data.iloc[:, -1].values
-  
+
   def __len__(self):
     return len(self.data)
 
@@ -108,10 +145,10 @@ class SBPDataModule(pl.LightningDataModule):
     if stage in (None, 'fit'):
       self.train
       self.valid
-    
+
     if stage == 'test':
       self.test
-  
+
   def train_dataloader(self):
     return DataLoader(self.train, batch_size = self.batch_size, shuffle=True)
 
@@ -126,62 +163,85 @@ class SBPRegression(pl.LightningModule):
     super(SBPRegression, self).__init__()
     self.config = config
 
-    self.fc1 = nn.Linear(self.config['num_features'], 128)
-    self.fc2 = nn.Linear(128, 64)
-    self.fc3 = nn.Linear(64, 32)
-    self.fc4 = nn.Linear(32, 1)
+    self.relu = nn.ReLU()
+    self.fc1 = nn.Linear(self.config['num_features'], 1024)
+    self.fc2 = nn.Linear(1024, 512)
+    self.fc3 = nn.Linear(512, 128)
+    self.fc4 = nn.Linear(128, 1)
 
-    self.loss_func = nn.MSELoss(reduction='mean')
+    # 평균 제곱 오차(Mean Squared Error, MSE)와 평균 절대 오차(Mean Absolute Error, MAE)의 장점을 결합한 손실함수
+    # 입력값의 차이에 따라 다르게 반응. 작은 오차에는 제곱 오차를 사용하여 회귀 모델을 학습, 큰 오차에는 절대 오차를 사용하여 로버스트한 학습을 수행합니다.
+    # 이를 통해 이상치(outlier)에 민감하지 않고, 일반적인 데이터 패턴에 잘 적응하는 모델을 구축
+    # self.loss_func = nn.functional.huber_loss
+    # self.loss_func = nn.MSELoss(reduction = 'mean')
+    self.loss_func = nn.L1Loss()
 
   def forward(self, x, y = None):
-    x = torch.relu(self.fc1(x))
-    x = torch.relu(self.fc2(x))
-    x = torch.relu(self.fc3(x))
-    x = torch.relu(self.fc4(x))
-
+    x = self.fc1(x)
+    x = self.relu(x)
+    x = self.fc2(x)
+    x = self.relu(x)
+    x = self.fc3(x)
+    x = self.relu(x)
+    x = self.fc4(x)
     return x
-  
-  def training_step(self, batch, batch_idx):
-    x, y = batch
-    y_pred = self.forward(x)
-    loss = self.loss_func(y_pred, y.squeeze(0))
 
+  def inverse_transform(self, y_log):
+    return torch.exp(y_log)
+
+  def training_step(self, batch, batch_idx):
+    x, y_log = batch
+    y_pred_log = self.forward(x)
+    y_pred = self.inverse_transform(y_pred_log)
+
+    # delta의 의미
+    # loss = self.loss_func(y_pred, self.inverse_transform(y_log).squeeze(0), delta = 20)
+    loss = self.loss_func(y_pred, self.inverse_transform(y_log).squeeze(0))
+
+    self.log("train_loss", loss, prog_bar=True, logger=True)
+
+    return loss
     self.log(
-        "train_loss", 
-        loss, 
-        prog_bar=True, 
-        logger=True, 
+        "train_loss",
+        loss,
+        prog_bar=True,
+        logger=True,
         batch_size=len(batch))
 
     return loss
 
   def validation_step(self, batch, batch_idx):
-    x, y = batch
-    y_pred = self.forward(x)
-    loss = self.loss_func(y_pred, y.squeeze(0))
+    x, y_log = batch
+    y_pred_log = self.forward(x)
+    y_pred = self.inverse_transform(y_pred_log)
+    # loss = self.loss_func(y_pred, self.inverse_transform(y_log).squeeze(0), delta = 20)
+    loss = self.loss_func(y_pred, self.inverse_transform(y_log).squeeze(0))
 
     self.log(
-        "val_loss", 
-        loss, 
-        prog_bar=True, 
-        logger=True, 
+        "val_loss",
+        loss,
+        prog_bar=True,
+        logger=True,
         batch_size=len(batch))
 
     return loss
 
   def test_step(self, batch, batch_idx):
-    x, y = batch
-    y_pred = self.forward(x)
-    loss = self.loss_func(y_pred, y.squeeze(0))
+    x, y_log = batch
+    y_pred_log = self.forward(x)
+    y_pred = self.inverse_transform(y_pred_log)
+    # loss = self.loss_func(y_pred, self.inverse_transform(y_log).squeeze(0), delta = 20)
+    loss = self.loss_func(y_pred, self.inverse_transform(y_log).squeeze(0))
 
     self.log(
-        "test_loss", 
-        loss, 
-        prog_bar=True, 
-        logger=True, 
+        "test_loss",
+        loss,
+        prog_bar=True,
+        logger=True,
         batch_size=len(batch))
 
     return loss
 
   def configure_optimizers(self):
       return torch.optim.AdamW(self.parameters(), lr= self.config['lr'])
+

@@ -52,10 +52,19 @@ class SBP():
     
     def predict(self):
         x = torch.FloatTensor(self.data.iloc[:].values)
-        # pred = np.exp(self.model(x).item())
-        pred = self.model(x).item()
+        pred = np.exp(self.model(x).item())
+        # pred = self.model(x).item()
         return pred
 
 
-# test_df = pd.read_csv('/Users/insu/deep_learning/data/last_last_test.csv')
+# df = pd.read_csv('.//data/HN16_ALL.csv')
+# col = ['sex','age','HE_ht','HE_wt','HE_BMI','HE_glu','BE5_1','HE_HPfh1','HE_HPfh2','HE_HPfh3','pa_aerobic','HE_sbp']
+# df = df[col]
+# df = df[df['age'] >= 19]
+# test_df = df.iloc[[400]]
+# print(test_df)
+
+# test_df = test_df.drop(columns = 'HE_sbp', axis = 1)
+# print(test_df)
+
 # print(SBP(test_df).predict())
