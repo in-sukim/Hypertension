@@ -247,7 +247,7 @@ class hypertensionClassifier(pl.LightningModule):
     
   # 클래스 1(고혈압)인 경우 가중치를 주어 모델이 고혈압인 경우를 더욱 잘 분류하도록 손실함수 커스텀
   def custom_loss_fn(self, logits, targets):
-      weights = torch.where(targets == 0, torch.tensor(2.0), torch.tensor(1.0))
+      weights = torch.where(targets == 0, torch.tensor(3.0), torch.tensor(1.0))
       loss = nn.BCEWithLogitsLoss()(logits, targets.view(-1, 1))
 
       weighted_loss = torch.mean(weights * loss)

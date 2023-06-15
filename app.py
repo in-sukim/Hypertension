@@ -75,10 +75,10 @@ def result():
     user_htn = User_HTN(df).user_type()
 
     if user_htn['고혈압분류'] == '정상':
-        prompt = '고혈압을 예방하기 위한 식습관과 운동습관 한가지씩 알려줘'
+        prompt = '고혈압을 예방하기 위해 피해야 할 식습관을 알려주고 건강을 유지하기 위한 운동습관 한가지씩 알려줘'
 
     else:
-        prompt = '고혈압을 가지고 있는 경우 치료하기 위해 식습관과 운동습관 한가지씩 알려줘'
+        prompt = '고혈압을 가지고 있는 경우 치료하기 위한 식습관과 운동습관 한가지씩 알려줘'
     openai.api_key = args.apikey
     
     def chating(text):

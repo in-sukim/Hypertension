@@ -4,24 +4,26 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.min.css">
 </head>
 <body>
-    <hgroup>
-        <h1 style = "text-align:center">예측 결과</h1>
-        <h2 style = "text-align:center">입력받은 사용자의 정보를 통해 예측한 결과입니다.</h2>
-    </hgroup>
     <article>
+        <hgroup>
+            <h1 style = "text-align:center">예측 결과</h1>
+            <h2 style = "text-align:center">입력받은 사용자의 정보를 통해 예측한 결과입니다.</h2>
+        </hgroup>
         {% if result_data %}
             {% if result_data['수축기혈압'] %}
-                <h2 style="text-align:center">예측 수축기 혈압: {{ result_data['수축기혈압']|round(1)}}</h2>
-                <h2 style="text-align:center">예측 이완기 혈압: {{ result_data['이완기혈압']|round(1)}}</h2>
+                <h4 style="text-align:center">예측 수축기 혈압: {{ result_data['수축기혈압']|round(1)}}</h2>
+                <h4 style="text-align:center">예측 이완기 혈압: {{ result_data['이완기혈압']|round(1)}}</h2>
             {% endif %}
-            <h2 style="text-align:center">고혈압 유형: {{ result_data['고혈압분류'] }}</h2>
+            <h4 style="text-align:center">고혈압 유형: {{ result_data['고혈압분류'] }}</h2>
         {% endif %}
     </article>
 
     <article>
-        <h5 style = "text-align:center">OpenAI 챗봇을 토대로 작성되었습니다.</h3>
         <article>
-            <h2 style = "text-align:center">건강관리법</h2>
+            <hgroup>
+                <h2 style = "text-align:center">건강관리법</h2>
+                <h5 style = "text-align:center">OpenAI 챗봇을 토대로 작성되었습니다.</h3>
+            </hgroup>
             <p id = 'health1' name = 'health1' white-space: pre-line>{{answer | safe}}</p>
         </article>
     </article>
