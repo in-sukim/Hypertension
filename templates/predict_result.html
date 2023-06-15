@@ -15,6 +15,9 @@
                 <h4 style="text-align:center">예측 이완기 혈압: {{ result_data['이완기혈압']|round(1)}}</h2>
             {% endif %}
             <h4 style="text-align:center">고혈압 유형: {{ result_data['고혈압분류'] }}</h2>
+            {% if result_data['고혈압분류']   == '고혈압' %}
+                <h5 style="text-align:center"> 고혈압일 확률이 높게 나타나셨기 때문에 정확한 검진을 위해 <br>병원에 방문하여 검사 받으시는 것을 권장드립니다. </h2>
+            {% endif %}
         {% endif %}
     </article>
 

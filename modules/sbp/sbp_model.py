@@ -88,20 +88,20 @@ def data_setup():
   preprocess.fit(over_train)
 
 
-  train = preprocess_data(over_train, preprocess)
   train['HE_sbp'] = remove_outliers(train['HE_sbp'])
   train['HE_glu'] = remove_outliers(train['HE_glu'])
+  train = preprocess_data(over_train, preprocess)
 
 
-
-  valid = preprocess_data(valid, preprocess)
   valid['HE_sbp'] = remove_outliers(valid['HE_sbp'])
   valid['HE_glu'] = remove_outliers(valid['HE_glu'])
+  valid = preprocess_data(valid, preprocess)
+  
 
-  test = preprocess_data(test, preprocess)
   test['HE_sbp'] = remove_outliers(test['HE_sbp'])
   test['HE_glu'] = remove_outliers(test['HE_glu'])
-
+  test = preprocess_data(test, preprocess)
+  
   train = train.dropna()
   valid = valid.dropna()
   test = test.dropna()

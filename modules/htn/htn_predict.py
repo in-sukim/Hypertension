@@ -53,12 +53,11 @@ class HTN():
     def predict(self):
         x = torch.FloatTensor(self.data.iloc[:].values)
         logits = self.model(x)
-        
-        logits = [1 if x > 0.65 else 0 for x in logits]
+
+        logits = [1 if x > 0.5 else 0 for x in logits]
 
         return logits[0]
 
 
-# test_df = pd.read_csv('./data/htn_test_df.csv')
-# print(HTN(test_df).predict())
+# print(HTN(new_input_df).predict())
 
