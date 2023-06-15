@@ -25,15 +25,13 @@
 | :-------------------------------------------: | :------------: |
 |  <img width="696" alt="스크린샷 2023-06-15 오후 3 29 39" src="https://github.com/in-sukim/Hypertension/assets/43094223/0820da59-5f8b-4ee2-95c3-1c633ddae32b" width="300" height="300">|  <img width="687" alt="스크린샷 2023-06-15 오후 3 29 48" src="https://github.com/in-sukim/Hypertension/assets/43094223/8db837d8-1dcc-44f0-bfb7-9bd36fc9002f" width="300" height="300">|  
 ||  |  
-| <img width="675" alt="스크린샷 2023-06-15 오후 3 30 09" src="https://github.com/in-sukim/Hypertension/assets/43094223/c8a2235f-5ca7-45da-a93f-34c0ca0aa730" width="300" height="300">|  <img width="686" alt="스크린샷 2023-06-15 오후 3 30 38" src="https://github.com/in-sukim/Hypertension/assets/43094223/4237af38-f944-4ba9-afce-f1a1fb8ba78c" width="300" height="300">|
+| <img width="612" alt="스크린샷 2023-06-15 오후 3 55 45" src="https://github.com/in-sukim/Hypertension/assets/43094223/7dc1a3f7-1aa9-4599-aa19-ef5dc571d983" width="300" height="300">|  <img width="686" alt="스크린샷 2023-06-15 오후 3 30 38" src="https://github.com/in-sukim/Hypertension/assets/43094223/4237af38-f944-4ba9-afce-f1a1fb8ba78c" width="300" height="300">|
 || |
 ---
 || |
 | :-------------------------------------------: | :------------: |
-|  <img width="854" alt="스크린샷 2023-06-15 오후 3 38 25" src="https://github.com/in-sukim/Hypertension/assets/43094223/92b878b0-34bc-41da-a2f7-5a7e796c7af6" width="300" height="300">|  <img width="879" alt="스크린샷 2023-06-15 오후 3 40 23" src="https://github.com/in-sukim/Hypertension/assets/43094223/f3922f8e-998f-4b7c-9de7-3412061418eb" width="400" height="400">|  
+|  <img width="828" alt="스크린샷 2023-06-15 오후 3 57 49" src="https://github.com/in-sukim/Hypertension/assets/43094223/772569bc-5794-4ad7-acdf-3a21155812a5" width="400" height="400">|  <img width="842" alt="스크린샷 2023-06-15 오후 4 00 08" src="https://github.com/in-sukim/Hypertension/assets/43094223/aef5b2fe-d0ed-435c-bb0d-0cc5132a3926" width="400" height="400">|  
 ||  |  
-|  |  <img width="877" alt="스크린샷 2023-06-15 오후 3 40 30" src="https://github.com/in-sukim/Hypertension/assets/43094223/480112c5-b102-4249-86c5-ec0289f94c1f" width="400" height="400">   |
-|| |
 ---
 
 ## 디렉토리 구조
