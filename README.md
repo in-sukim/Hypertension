@@ -33,8 +33,8 @@
 | :-------------------------------------------: | :------------: |
 |  <img width="838" alt="스크린샷 2023-06-15 오후 4 05 19" src="https://github.com/in-sukim/Hypertension/assets/43094223/39ba39a6-c8bc-44f5-804c-80fca716c3a3" width="300" height="400">|  <img width="834" alt="스크린샷 2023-06-15 오후 4 08 58" src="https://github.com/in-sukim/Hypertension/assets/43094223/b04ce631-6814-4a53-8787-e12fcbb4a063" width="200" height="200">|
 |  |  <img width="827" alt="스크린샷 2023-06-15 오후 4 09 07" src="https://github.com/in-sukim/Hypertension/assets/43094223/fe65e7b1-c617-46e3-9824-452dff01d295" width="200" height="400">|
----
 
+---
 ## 디렉토리 구조
 
 ```bash
