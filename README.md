@@ -30,7 +30,7 @@
 ---
 || |
 | :-------------------------------------------: | :------------: |
-|  <img width="828" alt="스크린샷 2023-06-15 오후 3 57 49" src="https://github.com/in-sukim/Hypertension/assets/43094223/772569bc-5794-4ad7-acdf-3a21155812a5" width="400" height="400">|  <img width="842" alt="스크린샷 2023-06-15 오후 4 00 08" src="https://github.com/in-sukim/Hypertension/assets/43094223/aef5b2fe-d0ed-435c-bb0d-0cc5132a3926" width="400" height="400">|  
+|  <img width="838" alt="스크린샷 2023-06-15 오후 4 05 19" src="https://github.com/in-sukim/Hypertension/assets/43094223/39ba39a6-c8bc-44f5-804c-80fca716c3a3" width="400" height="400">|  <img width="842" alt="스크린샷 2023-06-15 오후 4 00 08" src="https://github.com/in-sukim/Hypertension/assets/43094223/aef5b2fe-d0ed-435c-bb0d-0cc5132a3926" width="400" height="400">|  
 ||  |  
 ---
 
