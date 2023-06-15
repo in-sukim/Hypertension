@@ -21,18 +21,17 @@
 
 
 ## 사용자 건강정보 입력 페이지
-|| |
+|||
 | :-------------------------------------------: | :------------: |
 |  <img width="696" alt="스크린샷 2023-06-15 오후 3 29 39" src="https://github.com/in-sukim/Hypertension/assets/43094223/0820da59-5f8b-4ee2-95c3-1c633ddae32b" width="200" height="300">|  <img width="687" alt="스크린샷 2023-06-15 오후 3 29 48" src="https://github.com/in-sukim/Hypertension/assets/43094223/8db837d8-1dcc-44f0-bfb7-9bd36fc9002f" width="200" height="300">|  
-||  |  
 | <img width="612" alt="스크린샷 2023-06-15 오후 3 55 45" src="https://github.com/in-sukim/Hypertension/assets/43094223/7dc1a3f7-1aa9-4599-aa19-ef5dc571d983" width="200" height="300">|  <img width="686" alt="스크린샷 2023-06-15 오후 3 30 38" src="https://github.com/in-sukim/Hypertension/assets/43094223/4237af38-f944-4ba9-afce-f1a1fb8ba78c" width="200" height="300">|
 || |
 ---
+
 ## API 결과 화면
-|| |
+| 모든 건강정보 아는 경우|  수축기,이완기 혈압을 모를 경우 |
 | :-------------------------------------------: | :------------: |
 |  <img width="838" alt="스크린샷 2023-06-15 오후 4 05 19" src="https://github.com/in-sukim/Hypertension/assets/43094223/39ba39a6-c8bc-44f5-804c-80fca716c3a3" width="300" height="400">|  <img width="834" alt="스크린샷 2023-06-15 오후 4 08 58" src="https://github.com/in-sukim/Hypertension/assets/43094223/b04ce631-6814-4a53-8787-e12fcbb4a063" width="200" height="200">|
-||  |  
 |  |  <img width="827" alt="스크린샷 2023-06-15 오후 4 09 07" src="https://github.com/in-sukim/Hypertension/assets/43094223/fe65e7b1-c617-46e3-9824-452dff01d295" width="200" height="400">|
 ---
 
