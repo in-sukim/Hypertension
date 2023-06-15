@@ -21,12 +21,13 @@
 
 
 ## API 화면
-| 영화 기본정보  |  평점, 긍/부정별 리뷰 빈도수 시각화  |
+|| |
 | :-------------------------------------------: | :------------: |
-|  <img width="1194" alt="스크린샷 2023-05-15 오후 4 08 36" src="https://github.com/in-sukim/Naver_review_analysis/assets/43094223/1f73f836-4c68-4058-b321-cc5bffe2d23b"> |  <img width="676" alt="스크린샷 2023-05-15 오후 4 08 56" src="https://github.com/in-sukim/Naver_review_analysis/assets/43094223/bffd527b-2add-4b16-9701-13720eb29f91">|  
-| 평점 별 리뷰에 대한 테이블 뷰, 워드클라우드  |  긍/부정 별 리뷰에 대한 테이블 뷰, 워드클라우드   |  
-| <img width="1309" alt="스크린샷 2023-05-15 오후 4 10 12" src="https://github.com/in-sukim/Naver_review_analysis/assets/43094223/f819456f-dd2e-4c36-9f26-a87869321af3">   |  <img width="1223" alt="스크린샷 2023-05-15 오후 4 10 31" src="https://github.com/in-sukim/Naver_review_analysis/assets/43094223/5aa31693-bc94-40e7-a4b2-4adef0594ad2">     |
-
+|  <img width="696" alt="스크린샷 2023-06-15 오후 3 29 39" src="https://github.com/in-sukim/Hypertension/assets/43094223/0820da59-5f8b-4ee2-95c3-1c633ddae32b">|  <img width="687" alt="스크린샷 2023-06-15 오후 3 29 48" src="https://github.com/in-sukim/Hypertension/assets/43094223/8db837d8-1dcc-44f0-bfb7-9bd36fc9002f">|  
+||  |  
+| <img width="675" alt="스크린샷 2023-06-15 오후 3 30 09" src="https://github.com/in-sukim/Hypertension/assets/43094223/c8a2235f-5ca7-45da-a93f-34c0ca0aa730">   |  <img width="686" alt="스크린샷 2023-06-15 오후 3 30 38" src="https://github.com/in-sukim/Hypertension/assets/43094223/4237af38-f944-4ba9-afce-f1a1fb8ba78c">    |
+|| |
+|  <img width="696" alt="스크린샷 2023-06-15 오후 3 29 39" src="https://github.com/in-sukim/Hypertension/assets/43094223/0820da59-5f8b-4ee2-95c3-1c633ddae32b">|  <img width="687" alt="스크린샷 2023-06-15 오후 3 29 48" src="https://github.com/in-sukim/Hypertension/assets/43094223/8db837d8-1dcc-44f0-bfb7-9bd36fc9002f">|  
 ---
 
 ## 디렉토리 구조
