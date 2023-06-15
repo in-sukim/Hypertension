@@ -66,5 +66,9 @@
 ```
 ## 유의사항
 ### OpenAI API Key 발급 필요
->   - 모델 성능 향상 및 긴 길이의 리뷰 처리 가능한 모델로 교체(RoBERTa)
->   - 영화와 관련 없는 리뷰 필터링(정치, 광고 등에 관한 리뷰)
+
+___
+## API 사용 방법
+```bash
+python app.py --apikey '사용자 OpenAI API Key'
+```
